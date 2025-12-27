@@ -16,6 +16,9 @@ __pycache__/
 # Jupyter Notebook
 .ipynb_checkpoints
 
+# Pytorch
+*.pth
+*.pt
 
 
 
@@ -26,3 +29,6 @@ __pycache__/
 
 # Environments
 .env
+
+# Dataset 
+/data 
