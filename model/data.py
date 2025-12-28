@@ -19,11 +19,14 @@ def get_dataloaders(data_dir="./data", batch_size=128, num_workers=4):
     train_transform = transforms.Compose([
         # Data augmentation to increase dataset size and variety --> to improve generalization 
         transforms.RandomHorizontalFlip(), 
-        transforms.RandomCrop(size=32, padding=4), 
+        transforms.RandAugment(num_ops=2, magnitude=9),
 
         # Apply normalization
         transforms.ToTensor(), 
-        transforms.Normalize(mean=CIFAR10_MEAN, std=CIFAR10_STD)
+        transforms.Normalize(mean=CIFAR10_MEAN, std=CIFAR10_STD),
+
+        # More data augmentation requiring tensor
+        transforms.RandomErasing(p=0.2)
     ])
 
     test_transform = transforms.Compose([

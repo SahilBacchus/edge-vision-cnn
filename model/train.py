@@ -141,7 +141,7 @@ def main():
         # Save best model
         if val_acc > best_val_acc:
             best_val_acc = val_acc
-            torch.save(model.state_dict(), "edgecnn_v1.1.pth")
+            torch.save(model.state_dict(), "edgecnn_v1.2.pth")
 
     train_time = time.time() - train_start
 
