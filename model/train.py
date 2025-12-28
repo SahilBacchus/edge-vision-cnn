@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
+from torch.optim import lr_scheduler
 import time
 
 from model import EdgeCNN
@@ -77,8 +78,8 @@ def evaluate(model, dataloader, criterion, device):
 
 def main():
     # Hyperparameters
-    num_epochs = 20
-    learning_rate = 1e-3
+    num_epochs = 30
+    learning_rate = 4e-3
     label_smoothing = 0.1
 
     
@@ -101,9 +102,16 @@ def main():
     )
 
     # Optimizer
-    optimizer = optim.Adam(
+    optimizer = optim.AdamW(
         model.parameters(),
         lr=learning_rate,
+        weight_decay=1e-2
+    )
+
+    # Learning rate scheduler
+    scheduler = lr_scheduler.CosineAnnealingLR(
+        optimizer, 
+        T_max=num_epochs
     )
 
 
@@ -121,6 +129,8 @@ def main():
         train_loss, train_acc = train_epoch(model, train_loader, criterion, optimizer, device)
         val_loss, val_acc = evaluate(model,test_loader, criterion, device)
 
+        scheduler.step()
+
         epoch_time = time.time() - epoch_start
 
         print(f"{'Train':<6} | Loss: {train_loss:.4f} | Acc: {train_acc:.2f}%")
@@ -131,7 +141,7 @@ def main():
         # Save best model
         if val_acc > best_val_acc:
             best_val_acc = val_acc
-            torch.save(model.state_dict(), "edgecnn_v1.0.pth")
+            torch.save(model.state_dict(), "edgecnn_v1.1.pth")
 
     train_time = time.time() - train_start
 
