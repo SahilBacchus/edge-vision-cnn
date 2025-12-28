@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
+import time
 
 from model import EdgeCNN
 from data import get_dataloaders
@@ -76,7 +77,7 @@ def evaluate(model, dataloader, criterion, device):
 
 def main():
     # Hyperparameters
-    num_epochs = 100
+    num_epochs = 20
     learning_rate = 1e-3
     label_smoothing = 0.1
 
@@ -110,24 +111,33 @@ def main():
     # Training loop
     # ========================= #
     best_val_acc = 0.0
+    train_start = time.time()
 
     for epoch in range(num_epochs):
         print(f"\nEpoch [{epoch + 1}/{num_epochs}]")
 
-        train_loss, train_acc = train_epoch(model, train_loader, criterion, optimizer, device)
+        epoch_start = time.time()
 
+        train_loss, train_acc = train_epoch(model, train_loader, criterion, optimizer, device)
         val_loss, val_acc = evaluate(model,test_loader, criterion, device)
+
+        epoch_time = time.time() - epoch_start
 
         print(f"{'Train':<6} | Loss: {train_loss:.4f} | Acc: {train_acc:.2f}%")
         print(f"{'Val':<6} | Loss: {val_loss:.4f} | Acc: {val_acc:.2f}%")
+        print(f"Epoch Time: {epoch_time:.4f}s")
+
 
         # Save best model
         if val_acc > best_val_acc:
             best_val_acc = val_acc
             torch.save(model.state_dict(), "edgecnn_v1.0.pth")
 
+    train_time = time.time() - train_start
+
     print("\nTraining complete!")
     print(f"Best Validation Accuracy: {best_val_acc:.2f}%")
+    print(f"Total training time: {train_time:.4f}s")
 
 
 if __name__ == "__main__":

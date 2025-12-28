@@ -60,7 +60,9 @@ def get_dataloaders(data_dir="./data", batch_size=128, num_workers=4):
         batch_size=batch_size,
         shuffle=True, 
         num_workers=num_workers,
-        pin_memory=True
+        pin_memory=True,
+        prefetch_factor=4, 
+        persistent_workers=True
     )
 
     test_loader = DataLoader(
@@ -68,7 +70,9 @@ def get_dataloaders(data_dir="./data", batch_size=128, num_workers=4):
         batch_size=batch_size,
         shuffle=False, 
         num_workers=num_workers,
-        pin_memory=True
+        pin_memory=True,
+        prefetch_factor=4, 
+        persistent_workers=True
     )
 
     return train_loader, test_loader
