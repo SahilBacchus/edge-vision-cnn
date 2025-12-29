@@ -78,7 +78,7 @@ def evaluate(model, dataloader, criterion, device):
 
 def main():
     # Hyperparameters
-    num_epochs = 30
+    num_epochs = 200
     learning_rate = 4e-3
     label_smoothing = 0.1
 
@@ -141,7 +141,7 @@ def main():
         # Save best model
         if val_acc > best_val_acc:
             best_val_acc = val_acc
-            torch.save(model.state_dict(), "edgecnn_v1.2.pth")
+            torch.save(model.state_dict(), "edgecnn_v1.3.pth")
 
     train_time = time.time() - train_start
 

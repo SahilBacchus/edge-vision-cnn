@@ -95,7 +95,7 @@ def load_models():
 
     # Load EdgeCNN
     edgecnn = EdgeCNN()
-    edgecnn.load_state_dict(torch.load("edgecnn_v1.2.pth", map_location="cpu"))
+    edgecnn.load_state_dict(torch.load("edgecnn_v1.3.pth", map_location="cpu"))
     models["EdgeCNN (Ours)"] = edgecnn
 
     # Download/load CIFAR‑10 pretrained models
