@@ -1,0 +1,13 @@
+
+# Ignore everything 
+**
+
+
+# Except these files: 
+!edgecnn_v1.3.pth
+
+!model/__init__.py
+!model/model.py
+!model/inference.py
+
+!backend/
