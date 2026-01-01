@@ -42,7 +42,7 @@ def health_check():
 
 # --- Prediction 
 @app.post("/predict", response_model=PredictionResponse)
-async def predict(file: UploadFile= File(...)): 
+async def predict_image(file: UploadFile= File(...)): 
     '''
     Upload an image and get a CIFAR-10 class prediction w/ confidence from EdgeCNN
     '''
