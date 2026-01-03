@@ -1,8 +1,28 @@
 # edge-vision-cnn
 
+## End-to-End Machine Learning Pipeline
+ 
+EdgeCNN is a fully end-to-end machine learning project, covering the complete lifecycle from design and training to production-ready deployment
 
+**1. Model Architecture**
+-  A custom edge-optimized convolutional neural network (CNN)
+- Implements MobileNet-style depthwise separable convolution blocks for efficiency 
 
+**2. Training**
+- Data Augmentation for better generalization
+- Optimized with AdamW and cosine annealing learning rate scheduling
+- Best model checkpointing
 
+**3. Evaluation & Benchmarking**
+- Quantitative comparison against established CIFAR-10 models 
+
+**4. Production API**
+- A FastAPI service for model inference
+- Image upload endpoint with class prediction with confidence
+
+**5. Deployment**
+- Containerized the application with Docker
+- Designed for easy deployment to cloud providers (ex. pulling the image on an AWS EC2 instance)
 
 ## Evaluation Results 
 
